@@ -3,8 +3,8 @@ package com.codeoftheweb.salvo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Entity
 public class Game {
@@ -15,7 +15,7 @@ public class Game {
     private Long id;
     private Date creationDate;
 
-    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     List<GamePlayer> gamePlayers;
 
     public Game() { }
@@ -29,4 +29,26 @@ public class Game {
     public void setCreationDate(Date creationDate) { this.creationDate = creationDate; }
 
     public Date getCreationDate() { return this.creationDate; }
+
+    public Map<String, Object> getMappedData() {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("id", this.id);
+        data.put("created", new Timestamp(this.creationDate.getTime()));
+
+        List<Map<String, Object>> players = new ArrayList<Map<String, Object>>();
+
+        Map<String, Object> player;
+
+        for (GamePlayer gamePlayer : this.gamePlayers) {
+            player = new HashMap<String, Object>();
+            player.put("id", gamePlayer.getId());
+            player.put("player", gamePlayer.getPlayerData());
+
+            players.add(player);
+        }
+
+        data.put("gamePlayers", players);
+
+        return data;
+    }
 }

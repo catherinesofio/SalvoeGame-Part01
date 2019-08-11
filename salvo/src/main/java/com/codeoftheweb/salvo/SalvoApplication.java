@@ -47,9 +47,7 @@ public class SalvoApplication {
 			gamePlayerRepository.save(new GamePlayer(game5.getCreationDate(), player4, game5));
 			gamePlayerRepository.save(new GamePlayer(game5.getCreationDate(), player1, game5));
 			gamePlayerRepository.save(new GamePlayer(game6.getCreationDate(), player3, game6));
-			gamePlayerRepository.save(new GamePlayer(game6.getCreationDate(), null, game6));
 			gamePlayerRepository.save(new GamePlayer(game7.getCreationDate(), player4, game7));
-			gamePlayerRepository.save(new GamePlayer(game7.getCreationDate(), null, game7));
 			gamePlayerRepository.save(new GamePlayer(game8.getCreationDate(), player3, game8));
 			gamePlayerRepository.save(new GamePlayer(game8.getCreationDate(), player4, game8));
 		};

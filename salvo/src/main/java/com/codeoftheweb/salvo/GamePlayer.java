@@ -1,5 +1,6 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,7 +31,11 @@ public class GamePlayer {
         this.game = game;
     }
 
+    public Long getId() { return this.id; }
+
     public Player getPlayer() { return this.player; }
+
+    public Object getPlayerData() { return this.player.getMappedData(); }
 
     public Game getGame() { return this.game; }
 }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -15,10 +16,10 @@ public class SalvoController {
     private GameRepository gameRepository;
 
     @RequestMapping("/games")
-    public List<Long> getGames() {
+    public List<Map<String, Object>> getGames() {
         return gameRepository.findAll()
                 .stream()
-                .map(x -> x.getId())
+                .map(x -> x.getMappedData())
                 .collect(Collectors.toList());
     }
 }

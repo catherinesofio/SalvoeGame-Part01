@@ -3,7 +3,9 @@ package com.codeoftheweb.salvo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Player {
@@ -16,7 +18,7 @@ public class Player {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     List<GamePlayer> gamePlayers;
 
     public Player() { }
@@ -51,5 +53,13 @@ public class Player {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public Map<String, Object> getMappedData() {
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("id", this.id);
+        data.put("email", this.email);
+
+        return data;
     }
 }
