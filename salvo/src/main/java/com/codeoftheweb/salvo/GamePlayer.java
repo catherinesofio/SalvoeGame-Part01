@@ -1,6 +1,5 @@
 package com.codeoftheweb.salvo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,7 +23,10 @@ public class GamePlayer {
     private Game game;
 
     @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER)
-    private List<Ship> ships;
+    private Set<Ship> ships;
+
+    @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER)
+    private Set<Salvo> salvoes;
 
     public GamePlayer() { }
 
@@ -32,28 +34,44 @@ public class GamePlayer {
         this.createdDate = createdDate;
         this.player = player;
         this.game = game;
+        this.salvoes = new HashSet<>();
     }
 
     public Long getId() { return this.id; }
 
-    public Player getPlayer() { return this.player; }
-
     public Object getPlayerData() { return this.player.getMappedData(); }
 
-    public Game getGame() { return this.game; }
+    public void addSalvo(Salvo salvo) {
+        this.salvoes.add(salvo);
+    }
 
-    public List<Ship> getShips() { return this.ships; }
+    public List<Map<String, Object>> getSalvoesData() {
+        List<Map<String, Object>> salvoes = new ArrayList<>();
+
+        Map<String, Object> salvo;
+        for (Salvo s : this.salvoes) {
+            salvo = new HashMap<>();
+            salvo.put("turn", s.getTurn());
+            salvo.put("locations", s.getCells());
+
+            salvoes.add(salvo);
+        }
+
+        return salvoes;
+    }
+
+    public List<Map<String, Object>> getShipsData() {
+        List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+
+        for (Ship ship : this.ships) {
+            data.add(ship.getMappedData());
+        }
+
+        return data;
+    }
 
     public Map<String, Object> getMappedData() {
         Map<String, Object> data = this.game.getMappedData();
-
-        List<Map<String, Object>> ships = new ArrayList<Map<String, Object>>();
-
-        for (Ship ship : this.ships) {
-            ships.add(ship.getMappedData());
-        }
-
-        data.put("ships", ships);
 
         return data;
     }

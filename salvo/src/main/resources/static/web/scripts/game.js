@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let param = getParamObj(window.location.search);
-    $.ajax("/api/game_view/"+param.gp).done((data) => loadGrid(data, param.gp));
+    $.ajax("/api/game_view/"+param.gp).done((data) => loadTables(data, param.gp));
 });
 
 function getParamObj(search) {
@@ -14,18 +14,45 @@ function getParamObj(search) {
   return obj;
 }
 
-function loadGrid(data, id) {
+function loadTables(data, id) {
+    createPlayerTable(data.gamePlayers.filter(x => x.id == id)[0]);
+
+    if (data.gamePlayers.length > 1) {
+        createEnemyTable(data.gamePlayers.filter(x => x.id != id)[0]);
+    } else {
+        createEnemyTable({ "player": { "id": -1, "email": "Waiting for player...@" } , "ships": [], "salvoes": [] });
+    }
+}
+
+function createPlayerTable(data) {
+    let table = createTable("player", data, true);
+}
+
+function createEnemyTable(data) {
+    let table = createTable("enemy", data, false);
+}
+
+function createTable(id, data, showShips) {
     let count = 10;
     let cols = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     let cells = data.ships.map(x => x.locations).flat();
-    let player = (data.gamePlayers[0].id == id) ? data.gamePlayers[0].player.email : data.gamePlayers[1].player.email;
-    let enemy = (data.gamePlayers[0].id != id) ? data.gamePlayers[0].player.email : data.gamePlayers[1].player.email;
+    let salvoesLocations = data.salvoes.map(x => x.locations).flat();
+    let salvoesTurns = { };
 
-    let table = $("#grid")[0];
+    for (var i = data.salvoes.length - 1; i >= 0; i--) {
+        let salvo = data.salvoes[i];
+        for (var j = salvo.locations.length - 1; j >= 0; j--) {
+            salvoesTurns[salvo.locations[j]] = salvo.turn;
+        }
+    }
+
+    let table = document.createElement("table");
+    table.setAttribute("id", id);
+    $(document.body)[0].appendChild(table);
 
     let caption = document.createElement("caption");
-    caption.innerHTML = player.split("@")[0] + " vs " + enemy.split("@")[0];
+    caption.innerHTML = data.player.email.split("@")[0];
     table.appendChild(caption);
 
     let thead = document.createElement("thead");
@@ -53,11 +80,26 @@ function loadGrid(data, id) {
         tr.appendChild(th);
 
         let empty = true;
+        let cell = "";
         for (let j = 0; j < count; j++) {
-            empty = (!cells.includes(rows[i] + cols[j]));
+            cell = rows[i] + cols[j];
+
+            empty = (!cells.includes(cell));
+            salvo = (salvoesLocations.includes(cell));
 
             let td = document.createElement("td");
-            td.setAttribute("empty", empty);
+            if (showShips) {
+                td.setAttribute("empty", empty);
+            }
+
+            if (empty && salvo) {
+                td.setAttribute("success", false);
+                td.innerHTML = salvoesTurns[rows[i] + cols[j]];
+            } else if (!empty && salvo) {
+                td.setAttribute("success", true);
+                td.innerHTML = salvoesTurns[cell];
+            }
+
             tr.appendChild(td);
         }
     }

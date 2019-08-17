@@ -4,8 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 public class Player {
@@ -19,7 +19,7 @@ public class Player {
     private String password;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
-    List<GamePlayer> gamePlayers;
+    Set<GamePlayer> gamePlayers;
 
     public Player() { }
 

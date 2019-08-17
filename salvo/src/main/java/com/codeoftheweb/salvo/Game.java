@@ -43,6 +43,8 @@ public class Game {
             player = new HashMap<String, Object>();
             player.put("id", gamePlayer.getId());
             player.put("player", gamePlayer.getPlayerData());
+            player.put("ships", gamePlayer.getShipsData());
+            player.put("salvoes", gamePlayer.getSalvoesData());
 
             players.add(player);
         }

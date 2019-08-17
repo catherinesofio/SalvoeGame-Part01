@@ -5,8 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -16,7 +15,7 @@ public class SalvoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository){
+	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, SalvoRepository salvoRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository){
 		return args -> {
 			Player player1 = playerRepository.save(new Player("Jack Bauer", "j.bauer@ctu.gov", "24"));
 			Player player2 = playerRepository.save(new Player("Chloe O'Brian", "c.obrian@ctu.gov", "42"));
@@ -50,31 +49,85 @@ public class SalvoApplication {
 			GamePlayer gamePlayer81 = gamePlayerRepository.save(new GamePlayer(game8.getCreationDate(), player3, game8));
 			GamePlayer gamePlayer82 = gamePlayerRepository.save(new GamePlayer(game8.getCreationDate(), player4, game8));
 
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("H2", "H3", "H4"), gamePlayer11));
-			shipRepository.save(new Ship("Submarine", Arrays.asList("E1", "F1", "G1"), gamePlayer11));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("B4", "B5"), gamePlayer11));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer12));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("F1", "F2"), gamePlayer12));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer21));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("C6", "C7"), gamePlayer21));
-			shipRepository.save(new Ship("Submarine", Arrays.asList("A2", "A3", "A4"), gamePlayer22));
-			shipRepository.save(new Ship("Patrol Boat ", Arrays.asList("G6", "H6"), gamePlayer22));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer22));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("C6", "C7"), gamePlayer22));
-			shipRepository.save(new Ship("Submarine", Arrays.asList("A2", "A3", "A4"), gamePlayer31));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("G6", "H6"), gamePlayer31));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer41));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("G6", "H6"), gamePlayer41));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer52));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("C6", "C7"), gamePlayer52));
-			shipRepository.save(new Ship("Submarine", Arrays.asList("A2", "A3", "A4"), gamePlayer51));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("G6", "H6"), gamePlayer51));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer61));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("C6", "C7"), gamePlayer61));
-			shipRepository.save(new Ship("Destroyer", Arrays.asList("B5", "C5", "D5"), gamePlayer81));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("C6", "C7"), gamePlayer81));
-			shipRepository.save(new Ship("Submarine", Arrays.asList("A2", "A3", "A4"), gamePlayer82));
-			shipRepository.save(new Ship("Patrol Boat", Arrays.asList("G6", "H6"), gamePlayer82));
+			Salvo salvo11 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("B4", "C5", "F1")), gamePlayer11));
+			Salvo salvo12 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("F2", "D5")), gamePlayer11));
+			gamePlayer11.addSalvo(salvo11);
+			gamePlayer12.addSalvo(salvo12);
+
+			Salvo salvo21 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("B4", "B5", "B6")), gamePlayer12));
+			Salvo salvo22 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("E1", "H3", "A2")), gamePlayer12));
+			gamePlayer12.addSalvo(salvo21);
+			gamePlayer12.addSalvo(salvo22);
+
+			Salvo salvo31 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("A2", "A4", "G6")), gamePlayer21));
+			Salvo salvo32 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("A3", "H6")), gamePlayer21));
+			gamePlayer21.addSalvo(salvo31);
+			gamePlayer21.addSalvo(salvo32);
+
+			Salvo salvo41 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("B5", "D5", "C7")), gamePlayer22));
+			Salvo salvo42 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("C5", "C6")), gamePlayer22));
+			gamePlayer21.addSalvo(salvo41);
+			gamePlayer21.addSalvo(salvo42);
+
+			Salvo salvo51 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("G6", "H6", "A4")), gamePlayer31));
+			Salvo salvo52 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("A2", "A3", "D8")), gamePlayer31));
+			gamePlayer31.addSalvo(salvo51);
+			gamePlayer31.addSalvo(salvo52);
+
+			Salvo salvo61 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("H1", "H2", "H3")), gamePlayer32));
+			Salvo salvo62 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("E1", "F2", "G3")), gamePlayer32));
+			gamePlayer32.addSalvo(salvo61);
+			gamePlayer32.addSalvo(salvo62);
+
+			Salvo salvo71 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("A3", "A4", "F7")), gamePlayer41));
+			Salvo salvo72 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("A2", "G6", "H6")), gamePlayer41));
+			gamePlayer41.addSalvo(salvo71);
+			gamePlayer41.addSalvo(salvo72);
+
+			Salvo salvo81 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("B5", "C6", "H1")), gamePlayer42));
+			Salvo salvo82 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("C5", "C7", "D5")), gamePlayer42));
+			gamePlayer42.addSalvo(salvo81);
+			gamePlayer42.addSalvo(salvo82);
+
+			Salvo salvo91 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("A1", "A2", "A3")), gamePlayer51));
+			Salvo salvo92 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("G6", "G7", "G8")), gamePlayer51));
+			Salvo salvo93 = salvoRepository.save(new Salvo(3L, new HashSet<>(), gamePlayer51));
+			gamePlayer51.addSalvo(salvo91);
+			gamePlayer51.addSalvo(salvo92);
+			gamePlayer51.addSalvo(salvo93);
+
+			Salvo salvo101 = salvoRepository.save(new Salvo(1L, new HashSet<>(Arrays.asList("B5", "B6", "C7")), gamePlayer52));
+			Salvo salvo102 = salvoRepository.save(new Salvo(2L, new HashSet<>(Arrays.asList("C6", "D6", "E6")), gamePlayer52));
+			Salvo salvo103 = salvoRepository.save(new Salvo(3L, new HashSet<>(Arrays.asList("H1", "H8")), gamePlayer52));
+			gamePlayer52.addSalvo(salvo101);
+			gamePlayer52.addSalvo(salvo102);
+			gamePlayer52.addSalvo(salvo103);
+
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("H2", "H3", "H4")), gamePlayer11));
+			shipRepository.save(new Ship("Submarine", new HashSet<>(Arrays.asList("E1", "F1", "G1")), gamePlayer11));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("B4", "B5")), gamePlayer11));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer12));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("F1", "F2")), gamePlayer12));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer21));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")), gamePlayer21));
+			shipRepository.save(new Ship("Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")), gamePlayer22));
+			shipRepository.save(new Ship("Patrol Boat ", new HashSet<>(Arrays.asList("G6", "H6")), gamePlayer22));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer22));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")), gamePlayer22));
+			shipRepository.save(new Ship("Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")), gamePlayer31));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")), gamePlayer31));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer41));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")), gamePlayer41));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer52));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")), gamePlayer52));
+			shipRepository.save(new Ship("Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")), gamePlayer51));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")), gamePlayer51));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer61));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")), gamePlayer61));
+			shipRepository.save(new Ship("Destroyer", new HashSet<>(Arrays.asList("B5", "C5", "D5")), gamePlayer81));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("C6", "C7")), gamePlayer81));
+			shipRepository.save(new Ship("Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")), gamePlayer82));
+			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")), gamePlayer82));
 		};
 	}
 

@@ -3,10 +3,7 @@ package com.codeoftheweb.salvo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class Ship {
@@ -19,15 +16,15 @@ public class Ship {
 
     @ElementCollection
     @Column(name = "location")
-    private List<String> locations = new ArrayList<>();
+    private Set<String> locations = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ship_id")
+    @JoinColumn(name = "gamePlayer_id")
     private GamePlayer gamePlayer;
 
     public Ship() { }
 
-    public Ship(String type, List<String> locations, GamePlayer gamePlayer) {
+    public Ship(String type, Set<String> locations, GamePlayer gamePlayer) {
         this.type = type;
         this.locations = locations;
         this.gamePlayer = gamePlayer;
@@ -39,9 +36,9 @@ public class Ship {
 
     public void setType(String type) { this.type = type; }
 
-    public List<String> getLocations() { return this.locations; }
+    public Set<String> getLocations() { return this.locations; }
 
-    public void setLocations(List<String> locations) { this.locations = locations; }
+    public void setLocations(Set<String> locations) { this.locations = locations; }
 
     public GamePlayer getGamePlayer() { return this.gamePlayer; }
 

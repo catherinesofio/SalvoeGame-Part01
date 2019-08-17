@@ -65,6 +65,12 @@ td {
     width: 1em;
     height: 1em;
 
+    font-size: 1em;
+    text-shadow: 0em 0em 0.15em rgba(171, 117, 36, 1);
+    text-align: center;
+
+    color: white;
+
     background-image: linear-gradient(to bottom right, #bffff9, #68fcfc);
 
     box-shadow: 0em 0em 0.15em rgba(36, 171, 162, 0.25);
@@ -80,10 +86,26 @@ td[empty=false] {
     background-image: linear-gradient(to bottom right, rgb(50, 50, 50), rgb(25, 25, 25));
 }
 
-#grid {
+td[success=false] {
+    background-image: linear-gradient(to bottom right, rgb(178, 34, 34), rgb(128, 0, 0));
+}
+
+td[success=true] {
+    background-image: linear-gradient(to bottom right, rgb(50, 205, 50), rgb(0, 100, 0));
+}
+
+#player {
     position: absolute;
     top: 50vh;
-    left: 50vw;
+    left: 0vw;
 
-    transform: translate(-50%, -50%);
+    transform: translate(25%, -50%);
 }
+
+#enemy {
+     position: absolute;
+     top: 50vh;
+     right: 0vw;
+
+     transform: translate(-25%, -50%);
+ }
