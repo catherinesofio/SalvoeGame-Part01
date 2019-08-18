@@ -1,5 +1,6 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Game {
 
     public Date getCreationDate() { return this.creationDate; }
 
+    @JsonIgnore
     public Map<String, Object> getMappedData() {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("id", this.id);
@@ -45,6 +47,7 @@ public class Game {
             player.put("player", gamePlayer.getPlayerData());
             player.put("ships", gamePlayer.getShipsData());
             player.put("salvoes", gamePlayer.getSalvoesData());
+            player.put("score", gamePlayer.getScoreData());
 
             players.add(player);
         }

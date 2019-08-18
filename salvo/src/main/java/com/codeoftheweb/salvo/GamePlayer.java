@@ -1,5 +1,6 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -28,6 +29,10 @@ public class GamePlayer {
     @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER)
     private Set<Salvo> salvoes;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "score_id")
+    private Score score;
+
     public GamePlayer() { }
 
     public GamePlayer(Date createdDate, Player player, Game game) {
@@ -35,9 +40,14 @@ public class GamePlayer {
         this.player = player;
         this.game = game;
         this.salvoes = new HashSet<>();
+        this.score = new Score();
     }
 
     public Long getId() { return this.id; }
+
+    public void setScore(Score score) { this.score = score; }
+
+    public float getScoreData() { return this.score.getScore(); }
 
     public Object getPlayerData() { return this.player.getMappedData(); }
 
@@ -45,6 +55,7 @@ public class GamePlayer {
         this.salvoes.add(salvo);
     }
 
+    @JsonIgnore
     public List<Map<String, Object>> getSalvoesData() {
         List<Map<String, Object>> salvoes = new ArrayList<>();
 
@@ -60,6 +71,7 @@ public class GamePlayer {
         return salvoes;
     }
 
+    @JsonIgnore
     public List<Map<String, Object>> getShipsData() {
         List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 
@@ -70,6 +82,7 @@ public class GamePlayer {
         return data;
     }
 
+    @JsonIgnore
     public Map<String, Object> getMappedData() {
         Map<String, Object> data = this.game.getMappedData();
 

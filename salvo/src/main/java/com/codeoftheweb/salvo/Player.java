@@ -1,9 +1,11 @@
 package com.codeoftheweb.salvo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,7 +21,10 @@ public class Player {
     private String password;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
-    Set<GamePlayer> gamePlayers;
+    private Set<GamePlayer> gamePlayers;
+
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    private Set<Score> scores;
 
     public Player() { }
 
@@ -27,6 +32,8 @@ public class Player {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.gamePlayers = new HashSet<>();
+        this.scores = new HashSet<>();
     }
 
     public Long getId() { return this.id; }
@@ -55,6 +62,11 @@ public class Player {
         return this.password;
     }
 
+    public void addScore(Score score) {
+        this.scores.add(score);
+    }
+
+    @JsonIgnore
     public Map<String, Object> getMappedData() {
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("id", this.id);
