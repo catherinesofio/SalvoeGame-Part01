@@ -129,32 +129,32 @@ public class SalvoApplication {
 			shipRepository.save(new Ship("Submarine", new HashSet<>(Arrays.asList("A2", "A3", "A4")), gamePlayer82));
 			shipRepository.save(new Ship("Patrol Boat", new HashSet<>(Arrays.asList("G6", "H6")), gamePlayer82));
 
-			Score score11 = scoreRepository.save(new Score(1f, game1.getCreationDate(), gamePlayer11, player1));
-			gamePlayer11.setScore(score11);
+			Score score11 = scoreRepository.save(new Score(1f, game1.getCreationDate(), game1, player1));
+			Score score12 = scoreRepository.save(new Score(0f, game1.getCreationDate(), game1, player2));
+			game1.addScore(score11);
+			game1.addScore(score12);
 			player1.addScore(score11);
-			Score score12 = scoreRepository.save(new Score(0f, game1.getCreationDate(), gamePlayer12, player2));
-			gamePlayer12.setScore(score12);
 			player2.addScore(score12);
 
-			Score score21 = scoreRepository.save(new Score(0.5f, game2.getCreationDate(), gamePlayer21, player1));
-			gamePlayer21.setScore(score21);
+			Score score21 = scoreRepository.save(new Score(0.5f, game2.getCreationDate(), game2, player1));
+			Score score22 = scoreRepository.save(new Score(0.5f, game2.getCreationDate(), game2, player2));
+			game2.addScore(score21);
+			game2.addScore(score22);
 			player1.addScore(score21);
-			Score score22 = scoreRepository.save(new Score(0.5f, game2.getCreationDate(), gamePlayer22, player2));
-			gamePlayer22.setScore(score22);
 			player2.addScore(score22);
 
-			Score score31 = scoreRepository.save(new Score(1f, game3.getCreationDate(), gamePlayer31, player2));
-			gamePlayer31.setScore(score31);
+			Score score31 = scoreRepository.save(new Score(1f, game3.getCreationDate(), game3, player2));
+			Score score32 = scoreRepository.save(new Score(0f, game3.getCreationDate(), game3, player4));
+			game3.addScore(score31);
+			game3.addScore(score32);
 			player2.addScore(score31);
-			Score score32 = scoreRepository.save(new Score(0f, game3.getCreationDate(), gamePlayer32, player4));
-			gamePlayer32.setScore(score32);
 			player4.addScore(score32);
 
-			Score score41 = scoreRepository.save(new Score(0.5f, game4.getCreationDate(), gamePlayer41, player2));
-			gamePlayer41.setScore(score41);
+			Score score41 = scoreRepository.save(new Score(0.5f, game4.getCreationDate(), game4, player2));
+			Score score42 = scoreRepository.save(new Score(0.5f, game4.getCreationDate(), game4, player1));
+			game4.addScore(score41);
+			game4.addScore(score42);
 			player2.addScore(score41);
-			Score score42 = scoreRepository.save(new Score(0.5f, game4.getCreationDate(), gamePlayer42, player1));
-			gamePlayer42.setScore(score42);
 			player1.addScore(score42);
 		};
 	}

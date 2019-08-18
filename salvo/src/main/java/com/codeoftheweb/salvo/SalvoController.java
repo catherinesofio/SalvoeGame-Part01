@@ -17,7 +17,18 @@ public class SalvoController {
     private GameRepository gameRepository;
 
     @Autowired
+    private PlayerRepository playerRepository;
+
+    @Autowired
     private GamePlayerRepository gamePlayerRepository;
+
+    @RequestMapping("/players")
+    public List<Map<String, Object>> getPlayers() {
+        return playerRepository.findAll()
+                .stream()
+                .map(x -> x.getMappedData())
+                .collect(Collectors.toList());
+    }
 
     @RequestMapping("/games")
     public List<Map<String, Object>> getGames() {

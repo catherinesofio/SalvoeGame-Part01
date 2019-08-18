@@ -1,12 +1,9 @@
 package com.codeoftheweb.salvo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity
 public class Score {
@@ -18,19 +15,20 @@ public class Score {
     private float score;
     private Date finishDate;
 
-    @OneToMany(mappedBy = "score", fetch = FetchType.EAGER)
-    private GamePlayer gamePlayer;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player_id")
     private Player player;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "game_id")
+    private Game game;
+
     public Score() { }
 
-    public Score(float score, Date finishDate, GamePlayer game, Player player) {
+    public Score(float score, Date finishDate, Game game, Player player) {
         this.score = score;
         this.finishDate = finishDate;
-        this.gamePlayer = game;
+        this.game = game;
         this.player = player;
     }
 
@@ -43,4 +41,6 @@ public class Score {
     public void setFinishDate(Date finishDate) { this.finishDate = finishDate; }
 
     public Date getFinishDate() { return this.finishDate; }
+
+    public Long getPlayerId() { return this.player.getId(); }
 }

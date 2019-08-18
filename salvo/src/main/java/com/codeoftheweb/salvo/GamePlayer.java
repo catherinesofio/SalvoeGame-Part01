@@ -29,10 +29,6 @@ public class GamePlayer {
     @OneToMany(mappedBy = "gamePlayer", fetch = FetchType.EAGER)
     private Set<Salvo> salvoes;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "score_id")
-    private Score score;
-
     public GamePlayer() { }
 
     public GamePlayer(Date createdDate, Player player, Game game) {
@@ -40,14 +36,11 @@ public class GamePlayer {
         this.player = player;
         this.game = game;
         this.salvoes = new HashSet<>();
-        this.score = new Score();
     }
 
     public Long getId() { return this.id; }
 
-    public void setScore(Score score) { this.score = score; }
-
-    public float getScoreData() { return this.score.getScore(); }
+    public Long getPlayerId() { return this.player.getId(); }
 
     public Object getPlayerData() { return this.player.getMappedData(); }
 
