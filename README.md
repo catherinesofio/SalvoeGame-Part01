@@ -1,17 +1,19 @@
-# MindHub-Course04
+# Module 04
 ## Introduction to Java 1
-Course details: https://mindhubweb.com/cursos/full-stack-desarrollo-web/ <br>
-[Project 01](https://github.com/catherinesofio/MindHub-Course01) -
-[Project 02](https://github.com/catherinesofio/MindHub-Course02) -
-[Project 03](https://github.com/catherinesofio/MindHub-Course03) -
-[Project 05](https://github.com/catherinesofio/MindHub-Course05)
+[Module 01](https://github.com/catherinesofio/MindHub-Course01) -
+[Module 02](https://github.com/catherinesofio/MindHub-Course02) -
+[Module 03](https://github.com/catherinesofio/MindHub-Course03) -
+[Module 05](https://github.com/catherinesofio/MindHub-Course05)
 
-In this instance of the course, students were to start the development of their own online Salvo game.
-* Back End: Java, Spring Boot.
-* Front End: HTML, CSS, JavaScript.
+This project consists on the development of an online Salvo game. It is divided into two modules: this is the first one.
 
-This project is divided into two modules: this is the first one.
+The development of the project's Back End is almost completed (some parts were tasked on the next module). However, the Front End was merely developed for testing purposes.
 
-The development of the project's Back End is almost completed (some parts were to be tasked on the next module). However, the Front End was merely developed for testing purposes.
+Technologies used:
+* Back End: Java & Spring Boot
+* Front End: HTML, CSS & JavaScript
 
-Made by [Catalina Sofio Avogadro](https://www.linkedin.com/in/catalina-sofio-avogadro/).
+This and the following projects done during the course are organized by tasks, each with set requisites and goals, that represent different instances of the development. You can browse these instances by switching the branches of the repository.
+
+Made by [Catalina Sofio Avogadro](https://www.linkedin.com/in/catalina-sofio-avogadro/) <br>
+Course details: [MindHub](https://mindhubweb.com/cursos/full-stack-desarrollo-web/) & [Ministry of Education and Innovation of CABA](https://www.buenosaires.gob.ar/emprendedores/desarrollo-emprendedor/empleos-del-futuro/curso-avanzado-de-programacion-full-stack)
